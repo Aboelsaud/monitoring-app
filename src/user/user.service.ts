@@ -60,4 +60,17 @@ export class UserService {
       throw new NotFoundException('user_not_found');
     }
   }
+
+  async findOne(id: string): Promise<User> {
+    try {
+      const user = await this.userRepository.findOne({
+        where: {
+          id: id,
+        },
+      });
+      return user;
+    } catch (error) {
+      throw new NotFoundException('user_not_found');
+    }
+  }
 }
