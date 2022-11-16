@@ -2,6 +2,7 @@ import {
   BadRequestException,
   Injectable,
   InternalServerErrorException,
+  NotFoundException,
   UnauthorizedException,
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
@@ -38,13 +39,20 @@ export class AuthService extends AuthToken {
     const user = await this.userService.findOneByQuery({
       where: { email: loginUser.email },
     });
+    if (user) {
+      if (user.isEmailConfirmed) {
+        if (!AuthHelper.validate(password, user.password))
+          throw new UnauthorizedException('wrong_password');
 
-    if (!AuthHelper.validate(password, user.password))
-      throw new UnauthorizedException('wrong_password');
+        const { token } = await this.generateAuthUser(user.id, user.email);
 
-    const { token } = await this.generateAuthUser(user.id, user.email);
-
-    return { user, token };
+        return { user, token };
+      } else {
+        throw new UnauthorizedException('email_not_verified');
+      }
+    } else {
+      throw new NotFoundException('user_not_found');
+    }
   }
 
   async validateUser(payload: jwtDto): Promise<boolean | User> {

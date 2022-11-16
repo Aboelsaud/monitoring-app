@@ -5,6 +5,7 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { AuthHelper } from '../auth/auth.helper';
 import { FindOneOptions, Repository } from 'typeorm';
 import { CreateUserInput } from './dto/create-user.input';
 import { User } from './entities/user.entity';
@@ -17,6 +18,8 @@ export class UserService {
 
   async createUser(user: CreateUserInput): Promise<User> {
     try {
+      const password = AuthHelper.hash(user.password);
+      user.password = password;
       const userEntity = this.userRepository.create(user);
       const newUser = await this.userRepository.save(userEntity);
       return newUser;
