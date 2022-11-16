@@ -9,11 +9,13 @@ import { AuthHelper } from '../auth/auth.helper';
 import { FindOneOptions, Repository } from 'typeorm';
 import { CreateUserInput } from './dto/create-user.input';
 import { User } from './entities/user.entity';
+import { RedisService } from '../redis/redis.service';
 
 @Injectable()
 export class UserService {
   constructor(
     @InjectRepository(User) private userRepository: Repository<User>,
+    private redisService: RedisService,
   ) {}
 
   async createUser(user: CreateUserInput): Promise<User> {
