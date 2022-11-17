@@ -20,7 +20,7 @@ export class JwtAuthGuard implements CanActivate {
       const payload = this.jwtService.verify(jwt, {
         secret: process.env.AUTH_SECRET,
       });
-      const userId = request.params.id;
+      const userId = request.params.userId;
       if (payload.userId != userId) return false;
       return true;
     } catch (err) {

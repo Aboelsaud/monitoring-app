@@ -5,6 +5,8 @@ import { AuthModule } from './auth/auth.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { UserModule } from './user/user.module';
+import { CheckModule } from './check/check.module';
+import { ReportModule } from './report/report.module';
 
 @Module({
   imports: [
@@ -25,6 +27,8 @@ import { UserModule } from './user/user.module';
         autoLoadEntities: true,
       }),
     }),
+    CheckModule,
+    ReportModule,
   ],
   controllers: [AppController],
   providers: [AppService],
