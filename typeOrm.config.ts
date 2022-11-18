@@ -5,9 +5,8 @@ import { User } from './src/user/entities/user.entity';
 import { AddUserEntity1668613880242 } from './migrations/1668613880242-AddUserEntity';
 import { Check } from './src/check/entities/check.entity';
 import { Report } from './src/report/entities/report.entity';
-import { AddCheckEntity1668695232762 } from './migrations/1668695232762-AddCheckEntity';
-import { AddReportEntity1668695287330 } from './migrations/1668695287330-AddReportEntity';
-import { AddCascadeDelete1668696035724 } from './migrations/1668696035724-AddCascadeDelete';
+import { AddCheckEntity1668774501072 } from './migrations/1668774501072-AddCheckEntity';
+import { AddReportEntity1668774573857 } from './migrations/1668774573857-AddReportEntity';
 
 config();
 
@@ -22,10 +21,7 @@ export const AppDataSource = new DataSource({
   database: configService.get('POSTGRES_DATABASE'),
   entities: [User, Check, Report],
   migrations: [
-    AddUserEntity1668613880242,
-    AddCheckEntity1668695232762,
-    AddReportEntity1668695287330,
-    AddCascadeDelete1668696035724,
+    AddUserEntity1668613880242,AddCheckEntity1668774501072,AddReportEntity1668774573857
   ],
 });
 
