@@ -9,6 +9,6 @@ export class eventEmitter {
     console.log('payload event emitter', payload);
     const check = payload.savedCheck;
     const report = payload.savedReport;
-    let interval = startInterval(check, report);
+    let interval = startInterval(check, report, payload.user_email);
   }
 }

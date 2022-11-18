@@ -10,12 +10,14 @@ import { CreateCheckDto } from './dto/create-check.dto';
 import { UpdateCheckDto } from './dto/update-check.dto';
 import { Check } from './entities/check.entity';
 import { EventEmitter2, OnEvent } from '@nestjs/event-emitter';
+import { UserService } from '../user/user.service';
 
 @Injectable()
 export class CheckService {
   constructor(
     @InjectRepository(Check) private checkRepository: Repository<Check>,
     @InjectRepository(Report) private reportRepository: Repository<Report>,
+    private userService: UserService,
     private eventEmitter: EventEmitter2,
   ) {}
   async create(createCheckDto: CreateCheckDto, userId: string) {
@@ -28,7 +30,12 @@ export class CheckService {
       const report = this.reportRepository.create(reportBody);
       const savedReport = await this.reportRepository.save(report);
 
-      this.eventEmitter.emit('createCheck', { savedCheck, savedReport });
+      const user: any = await this.userService.findOne(userId);
+      this.eventEmitter.emit('createCheck', {
+        savedCheck,
+        savedReport,
+        user_email: user.email,
+      });
 
       return check;
     } catch (err) {
