@@ -8,6 +8,9 @@ import { UserModule } from './user/user.module';
 import { CheckModule } from './check/check.module';
 import { ReportModule } from './report/report.module';
 import { EventEmitterModule } from '@nestjs/event-emitter';
+import { PollingModule } from './polling/polling.module';
+import { AxiosConfigModule } from './axios-config/axiosConfig.module';
+import { EventEmittersModule } from './event-emitter/eventEmitter.module';
 
 @Module({
   imports: [
@@ -31,6 +34,9 @@ import { EventEmitterModule } from '@nestjs/event-emitter';
     }),
     CheckModule,
     ReportModule,
+    PollingModule,
+    AxiosConfigModule,
+    EventEmittersModule,
   ],
   controllers: [AppController],
   providers: [AppService],

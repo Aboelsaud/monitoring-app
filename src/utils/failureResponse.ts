@@ -1,5 +1,4 @@
 export const FailureResponse = (report, check, status) => {
-  console.log('faileddddddddd');
   let details: any = {};
   const { outages, downtime } = report;
   const { interval } = check;

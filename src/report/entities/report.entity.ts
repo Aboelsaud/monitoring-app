@@ -22,7 +22,7 @@ export class Report {
   @Column({ default: 0 })
   uptime: number;
 
-  @Column({ default: 0 })
+  @Column({ type: 'decimal', precision: 5, scale: 2, default: 0 })
   responseTime: number;
 
   @ManyToOne(() => User, (user) => user.reports, {

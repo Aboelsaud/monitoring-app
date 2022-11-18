@@ -33,7 +33,6 @@ export class CheckService {
       const user: any = await this.userService.findOne(userId);
       this.eventEmitter.emit('createCheck', {
         savedCheck,
-        savedReport,
         user_email: user.email,
       });
 
@@ -55,8 +54,28 @@ export class CheckService {
     return check;
   }
 
-  update(id: string, updateCheckDto: UpdateCheckDto) {
-    return `This action updates a #${id} check`;
+  async update(id: string, updateCheckDto: UpdateCheckDto) {
+    const check = await this.checkRepository.findOneBy({ id: id });
+    if (check) {
+      try {
+        const Check = await this.checkRepository.preload({
+          id: id,
+          ...updateCheckDto,
+        });
+        const user: any = await this.userService.findOne(Check.userId);
+
+        const updatedCheck = await this.checkRepository.save(Check);
+        this.eventEmitter.emit('updateCheck', {
+          updatedCheck,
+          user_email: user.email,
+        });
+        return updatedCheck;
+      } catch (err) {
+        throw new BadRequestException('error_on_removing_check');
+      }
+    } else {
+      throw new NotFoundException('check_not_found');
+    }
   }
 
   async remove(id: string) {
