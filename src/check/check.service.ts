@@ -9,6 +9,7 @@ import { Repository } from 'typeorm';
 import { CreateCheckDto } from './dto/create-check.dto';
 import { UpdateCheckDto } from './dto/update-check.dto';
 import { Check } from './entities/check.entity';
+import { eventEmitter } from '../services/eventEmitter.sevice';
 
 @Injectable()
 export class CheckService {
@@ -25,6 +26,8 @@ export class CheckService {
       const reportBody: any = { checkId: savedCheck.id, userId: userId };
       const report = this.reportRepository.create(reportBody);
       await this.reportRepository.save(report);
+
+      eventEmitter.emit("createCheck", savedCheck);
 
       return check;
     } catch (err) {
