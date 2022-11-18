@@ -22,6 +22,7 @@ export class JwtAuthGuard implements CanActivate {
       });
       const userId = request.params.userId;
       if (payload.userId != userId) return false;
+      request.user = payload;
       return true;
     } catch (err) {
       throw new ForbiddenException('invalid auth token');

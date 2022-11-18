@@ -8,8 +8,8 @@ export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @UseGuards(JwtAuthGuard)
-  @Get(':id')
+  @Get(':userId')
   findUser(@Param() params: any): Promise<User> {
-    return this.userService.findOne(params.id);
+    return this.userService.findOne(params.userId);
   }
 }
