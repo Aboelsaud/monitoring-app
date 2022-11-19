@@ -44,18 +44,24 @@ export class CheckService {
 
   async findAll(userId: string) {
     return await this.checkRepository.find({
-      where: { userId: userId } as unknown,
+      where: { userId: userId },
     });
   }
 
-  async findOne(id: string) {
-    const check = await this.checkRepository.findOneBy({ id: id });
+  async findOne(id: string, userId: string) {
+    const check = await this.checkRepository.findOneBy({
+      id: id,
+      userId: userId,
+    });
     if (!check) throw new NotFoundException('check_not_found');
     return check;
   }
 
-  async update(id: string, updateCheckDto: UpdateCheckDto) {
-    const check = await this.checkRepository.findOneBy({ id: id });
+  async update(id: string, updateCheckDto: UpdateCheckDto, userId: string) {
+    const check = await this.checkRepository.findOneBy({
+      id: id,
+      userId: userId,
+    });
     if (check) {
       try {
         const Check = await this.checkRepository.preload({
@@ -78,8 +84,11 @@ export class CheckService {
     }
   }
 
-  async remove(id: string) {
-    const check = await this.checkRepository.findOneBy({ id: id });
+  async remove(id: string, userId: string) {
+    const check = await this.checkRepository.findOneBy({
+      id: id,
+      userId: userId,
+    });
     if (check) {
       try {
         await this.checkRepository.delete(id);

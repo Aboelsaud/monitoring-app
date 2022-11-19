@@ -18,35 +18,39 @@ export class CheckController {
   constructor(private readonly checkService: CheckService) {}
 
   @UseGuards(JwtAuthGuard)
-  @Post(':userId')
+  @Post()
   create(
     @Body() createCheckDto: CreateCheckDto,
-    @Param('userId') userId: string,
+    @Body('userId') userId: string,
   ) {
     return this.checkService.create(createCheckDto, userId);
   }
 
   @UseGuards(JwtAuthGuard)
-  @Get(':userId')
-  findAll(@Param('userId') userId: string) {
+  @Get()
+  findAll(@Body('userId') userId: string) {
     return this.checkService.findAll(userId);
   }
 
   @UseGuards(JwtAuthGuard)
-  @Get(':id/:userId')
-  findOne(@Param('id') id: string) {
-    return this.checkService.findOne(id);
+  @Get(':id')
+  findOne(@Param('id') id: string, @Body('userId') userId: string) {
+    return this.checkService.findOne(id, userId);
   }
 
   @UseGuards(JwtAuthGuard)
-  @Patch(':id/:userId')
-  update(@Param('id') id: string, @Body() updateCheckDto: UpdateCheckDto) {
-    return this.checkService.update(id, updateCheckDto);
+  @Patch(':id')
+  update(
+    @Param('id') id: string,
+    @Body() updateCheckDto: UpdateCheckDto,
+    @Body('userId') userId: string,
+  ) {
+    return this.checkService.update(id, updateCheckDto, userId);
   }
 
   @UseGuards(JwtAuthGuard)
-  @Delete(':id/:userId')
-  remove(@Param('id') id: string) {
-    return this.checkService.remove(id);
+  @Delete(':id')
+  remove(@Param('id') id: string, @Body('userId') userId: string) {
+    return this.checkService.remove(id, userId);
   }
 }
