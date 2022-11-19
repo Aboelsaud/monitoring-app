@@ -52,9 +52,9 @@ export class PollingService {
 
   async startInterval(check, user_email: string) {
     this.axiosConfigService.startReqConfig(user_email);
-    console.log(check);
-    let interval = setInterval(async () => {
+    const interval = setInterval(async () => {
       try {
+        console.log('still processing');
         let { url } = check;
         const configs = this.configs(check);
         const report = await this.reportService.findOneByCheckId(check.checkId);

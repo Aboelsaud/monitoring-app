@@ -19,7 +19,6 @@ import { ReportService } from '../report/report.service';
   providers: [
     CheckService,
     JwtService,
-    EventEmitterService,
     UserService,
     PollingService,
     AxiosConfigService,

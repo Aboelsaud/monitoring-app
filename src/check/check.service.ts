@@ -83,6 +83,7 @@ export class CheckService {
     if (check) {
       try {
         await this.checkRepository.delete(id);
+        this.eventEmitter.emit('deleteCheck', id);
         return 1;
       } catch (err) {
         throw new BadRequestException('error_on_removing_check');

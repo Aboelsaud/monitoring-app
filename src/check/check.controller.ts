@@ -39,7 +39,7 @@ export class CheckController {
   }
 
   @UseGuards(JwtAuthGuard)
-  @Patch(':id')
+  @Patch(':id/:userId')
   update(@Param('id') id: string, @Body() updateCheckDto: UpdateCheckDto) {
     return this.checkService.update(id, updateCheckDto);
   }
