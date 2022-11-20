@@ -2,10 +2,14 @@ FROM node:16
 
 WORKDIR /app
 
+COPY package*.json ./
+
 RUN npm install
 
 RUN npm install -g @nestjs/cli
 
 COPY . .
 
-CMD [ "npm run", "start:prod" ]
+RUN npm run build
+
+RUN chmod +x precompile.sh

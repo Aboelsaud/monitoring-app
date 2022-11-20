@@ -31,7 +31,7 @@ export class AuthService extends AuthToken {
       this.sendVerificationLink(user.email);
       return user;
     } catch (err) {
-      throw new InternalServerErrorException(err);
+      throw new BadRequestException(err);
     }
   }
   async login(loginUser: LoginAuthInput): Promise<any> {

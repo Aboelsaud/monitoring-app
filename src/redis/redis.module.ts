@@ -12,6 +12,7 @@ import { Cache } from 'cache-manager';
 
 const redis_vars = {
   store: redisStore,
+  isGlobal: true,
   host: process.env.REDIS_HOST,
   port: parseInt(process.env.REDIS_PORT),
   ttl: parseInt(process.env.REDIS_TTL),
