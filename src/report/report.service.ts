@@ -16,7 +16,7 @@ export class ReportService {
   ) {}
   async findAll(userId: string) {
     return await this.reportRepository.find({
-      where: { userId: userId } as unknown,
+      where: { userId: userId },
     });
   }
 

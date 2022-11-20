@@ -4,7 +4,7 @@ export const FailureResponse = (report, check, status) => {
   const { interval } = check;
   details.status = status;
   details.outages = outages + 1;
-  details.downtime = downtime + interval;
+  details.downtime = downtime + 1;
 
   return details;
 };
