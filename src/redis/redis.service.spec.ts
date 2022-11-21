@@ -37,7 +37,7 @@ describe('HelperService', () => {
 
   it('should call set function', async () => {
     await service.set('key', 'value');
-    expect(cacheManager.set).toBeCalledWith('key', 'value');
+    expect(cacheManager.set).toBeCalledWith('key', 'value', { ttl: undefined });
   });
 
   it('should call del function', async () => {

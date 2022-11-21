@@ -11,4 +11,10 @@ export class ReportController {
   findAll(@Body('userId') userId: string, @Body('tag') tags?: string[]) {
     return this.reportService.findAll(userId, tags);
   }
+
+  @UseGuards(JwtAuthGuard)
+  @Get(':id')
+  findCheck(@Body('userId') userId: string, @Param('id') id: string) {
+    return this.reportService.findCheck(id, userId);
+  }
 }

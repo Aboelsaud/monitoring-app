@@ -35,9 +35,10 @@ export class EventEmitterService {
     let checkInterval: any = intervals.find(
       (interval) => interval.checkId == checkId,
     );
+    console.log(checkId);
     clearInterval(await checkInterval.interval);
     intervals.splice(
-      intervals.indexOf((e) => e.checkId == checkId),
+      intervals.findIndex((e) => e.checkId === checkId),
       1,
     );
   }

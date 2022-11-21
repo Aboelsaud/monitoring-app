@@ -8,7 +8,7 @@ import { RedisService } from '../redis/redis.service';
 import { In, Repository } from 'typeorm';
 import { Report } from './entities/report.entity';
 import { CheckService } from '../check/check.service';
-import { AppDataSource } from 'typeOrm.config';
+import { AppDataSource } from '../../typeOrm.config';
 
 @Injectable()
 export class ReportService {
@@ -19,6 +19,8 @@ export class ReportService {
   ) {}
   async findAll(userId: string, tags: string[]) {
     if (tags) {
+      const value: any = await this.redisService.get(JSON.stringify(tags));
+      if (value) return JSON.parse(value);
       const checks: any = await this.checkService.findAllWithTags(userId, tags);
       const checksIds = checks.map((check) => {
         return check.id;
@@ -26,11 +28,34 @@ export class ReportService {
       const reports = await this.reportRepository.find({
         where: { checkId: In(checksIds) },
       });
+      if (reports.length > 0)
+        await this.redisService.set(
+          JSON.stringify(tags),
+          JSON.stringify(reports),
+          10,
+        );
       return reports;
     }
-    return await this.reportRepository.find({
+    const value: any = await this.redisService.get(userId);
+    if (value) return JSON.parse(value);
+    const reports = await this.reportRepository.find({
       where: { userId: userId },
     });
+    if (reports.length > 0)
+      await this.redisService.set(userId, JSON.stringify(reports), 10);
+    return reports;
+  }
+
+  async findCheck(checkId: string, userId: string) {
+    const value: any = await this.redisService.get(checkId);
+    if (value) return JSON.parse(value);
+    const reports = await this.reportRepository.find({
+      where: { userId: userId, checkId: checkId },
+    });
+    console.log(reports);
+    if (reports.length > 0)
+      await this.redisService.set(checkId, JSON.stringify(reports), 10);
+    return reports;
   }
 
   async findOne(id: string, userId: string) {
