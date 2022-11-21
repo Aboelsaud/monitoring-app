@@ -99,6 +99,7 @@ export class CheckService {
       id: id,
       userId: userId,
     });
+
     if (check) {
       try {
         await this.checkRepository.delete(id);

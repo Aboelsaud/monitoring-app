@@ -42,11 +42,16 @@ export class PollingService {
         response.status,
       );
       await this.reportService.updateReport(checkData.id, failureReportData);
-
-      sendEmail(
-        `server with check ${checkData.name} has been down`,
-        response.headers.user_email,
-      );
+      if (
+        (await this.reportService.getDownTimes(checkData.id)) %
+          checkData.threshold ===
+        0
+      ) {
+        sendEmail(
+          `server with check ${checkData.name} has been down`,
+          response.headers.user_email,
+        );
+      }
     }
   }
 

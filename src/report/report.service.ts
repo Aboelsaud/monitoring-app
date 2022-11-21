@@ -8,6 +8,7 @@ import { RedisService } from '../redis/redis.service';
 import { In, Repository } from 'typeorm';
 import { Report } from './entities/report.entity';
 import { CheckService } from '../check/check.service';
+import { AppDataSource } from 'typeOrm.config';
 
 @Injectable()
 export class ReportService {
@@ -39,6 +40,14 @@ export class ReportService {
     });
     if (!report) throw new NotFoundException('report_not_found');
     return report;
+  }
+
+  async getDownTimes(checkId: string) {
+    return await AppDataSource.getRepository(Report)
+      .createQueryBuilder()
+      .select('SUM(downtime)')
+      .where('checkId=:id', { id: checkId })
+      .getRawOne();
   }
 
   async findOneByCheckId(checkId: string) {
