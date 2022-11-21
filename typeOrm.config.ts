@@ -5,9 +5,8 @@ import { User } from './src/user/entities/user.entity';
 import { AddUserEntity1668613880242 } from './migrations/1668613880242-AddUserEntity';
 import { Check } from './src/check/entities/check.entity';
 import { Report } from './src/report/entities/report.entity';
-import { AddCheckEntity1668935516206 } from './migrations/1668935516206-AddCheckEntity';
-import { AddReportEntity1668935576943 } from './migrations/1668935576943-AddReportEntity';
-import { ChangeTagsDataType1669033565395 } from './migrations/1669033565395-ChangeTagsDataType';
+import { AddCheckEntity1669037495439 } from './migrations/1669037495439-AddCheckEntity';
+import { AddReportEntity1669037593135 } from './migrations/1669037593135-AddReportEntity';
 
 config();
 
@@ -23,9 +22,8 @@ export const AppDataSource = new DataSource({
   entities: [User, Check, Report],
   migrations: [
     AddUserEntity1668613880242,
-    AddCheckEntity1668935516206,
-    AddReportEntity1668935576943,
-    ChangeTagsDataType1669033565395,
+    AddCheckEntity1669037495439,
+    AddReportEntity1669037593135,
   ],
 });
 
