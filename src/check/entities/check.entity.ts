@@ -53,8 +53,8 @@ export class Check extends BaseEntity {
     password: string;
   };
 
-  @Column({ type: 'simple-array', array: true, nullable: true })
-  tags: string[];
+  @Column({ nullable: true })
+  tags: string;
 
   @Column({ nullable: true, type: 'jsonb' })
   httpHeaders: [

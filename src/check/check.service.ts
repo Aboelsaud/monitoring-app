@@ -5,7 +5,7 @@ import {
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Report } from '../report/entities/report.entity';
-import { Repository } from 'typeorm';
+import { In, Repository } from 'typeorm';
 import { CreateCheckDto } from './dto/create-check.dto';
 import { UpdateCheckDto } from './dto/update-check.dto';
 import { Check } from './entities/check.entity';
@@ -45,6 +45,16 @@ export class CheckService {
   async findAll(userId: string) {
     return await this.checkRepository.find({
       where: { userId: userId },
+    });
+  }
+
+  async findAllWithTags(userId: string, tags: string[]) {
+    return await this.checkRepository.find({
+      select: ['id'],
+      where: {
+        userId: userId,
+        tags: In(tags),
+      },
     });
   }
 

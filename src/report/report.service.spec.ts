@@ -1,9 +1,15 @@
 import { NotFoundException } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
+import { RedisModule } from '../redis/redis.module';
 import { Repository } from 'typeorm';
 import { Report } from './entities/report.entity';
 import { ReportService } from './report.service';
+import { CheckService } from '../check/check.service';
+import { UserService } from '../user/user.service';
+import { Check } from '../check/entities/check.entity';
+import { User } from '../user/entities/user.entity';
+import { EventEmitter2 } from '@nestjs/event-emitter';
 
 class NoErrorThrownError extends Error {}
 
@@ -22,9 +28,12 @@ describe('ReportService', () => {
   let reportRepository: any;
 
   const reportRepositoryToken = getRepositoryToken(Report);
+  const checkRepositoryToken = getRepositoryToken(Check);
+  const userRepositoryToken = getRepositoryToken(User);
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
+      imports: [RedisModule],
       providers: [
         ReportService,
         {
@@ -36,6 +45,17 @@ describe('ReportService', () => {
             delete: jest.fn(),
           },
         },
+        CheckService,
+        {
+          provide: checkRepositoryToken,
+          useValue: {},
+        },
+        {
+          provide: userRepositoryToken,
+          useValue: {},
+        },
+        UserService,
+        EventEmitter2,
       ],
     }).compile();
 
@@ -59,7 +79,7 @@ describe('ReportService', () => {
       const spyFindAll = jest
         .spyOn(reportRepository, 'find')
         .mockReturnValueOnce('' as any);
-      await service.findAll(userId);
+      await service.findAll(userId, null);
 
       expect(spyFindAll).toBeCalledWith({ where: { userId: 'fakeUserId' } });
     });
@@ -68,18 +88,24 @@ describe('ReportService', () => {
   describe('findOneReport', () => {
     it('should return report', async () => {
       const id: string = 'fakeReportId';
+      const userId: string = 'fakeUserId';
       const spyFindAll = jest
         .spyOn(reportRepository, 'findOneBy')
         .mockReturnValueOnce('report' as any);
-      await service.findOne(id);
+      await service.findOne(id, userId);
 
-      expect(spyFindAll).toBeCalledWith({ id: 'fakeReportId' });
+      expect(spyFindAll).toBeCalledWith({
+        id: 'fakeReportId',
+        userId: 'fakeUserId',
+      });
     });
 
     it('should throw report not found when report not exists', async () => {
       const id: string = 'fakeReportId';
       jest.spyOn(reportRepository, 'findOneBy').mockReturnValueOnce('' as any);
-      const error = await getError(async () => await service.findOne(id));
+      const error = await getError(
+        async () => await service.findOne(id, 'fakeUserId'),
+      );
 
       expect(error).not.toBeInstanceOf(NoErrorThrownError);
       expect(error).toStrictEqual(new NotFoundException('report_not_found'));
