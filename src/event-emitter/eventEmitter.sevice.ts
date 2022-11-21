@@ -24,7 +24,7 @@ export class EventEmitterService {
     let checkInterval: any = intervals.find(
       (interval) => interval.checkId == check.id,
     );
-    clearInterval(await checkInterval.interval);
+    if (checkInterval) clearInterval(await checkInterval.interval);
     let interval = this.pollingService.startInterval(check, payload.user_email);
     intervals.map((i) => (i.checkId == check.id ? (i.interval = interval) : i));
   }
@@ -35,8 +35,7 @@ export class EventEmitterService {
     let checkInterval: any = intervals.find(
       (interval) => interval.checkId == checkId,
     );
-    console.log(checkId);
-    clearInterval(await checkInterval.interval);
+    if (checkInterval) clearInterval(await checkInterval.interval);
     intervals.splice(
       intervals.findIndex((e) => e.checkId === checkId),
       1,
