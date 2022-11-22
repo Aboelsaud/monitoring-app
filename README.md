@@ -40,7 +40,8 @@ Monitor RESTFUL-API is an API for Uptime monitoring server which allows authoriz
 ```diff
 - You have to add your .env file that contains vars that you will find in .env.example
 ```
-
+## Note
+- There is a postman collection in the project in order to import it in postman app and use the endpoints.
 ## Running the app
 
 ```bash
