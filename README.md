@@ -24,50 +24,46 @@
 
 ## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+Monitor RESTFUL-API is an API for Uptime monitoring server which allows authorized users to enter URLs they want monitored, and get detailed uptime reports about their availability, response time, and total uptime/downtime.
 
-## Installation
+## Api endpoints
+- POST SignUp -> for create new user with email and password.
+- POST Login -> for user login into the system and return the token to be used across the system.
+- POST CreateCheck -> for create a check with specific url to be monitored.
+- PATCH updateCheck -> for update a specific check.
+- DELETE deleteCheck -> for delete a specific check.
+- GET findAllChecks -> for find all checks for specific authenticated user.
+- GET findCheck -> for find one check for specific authenticated user.
+- GET findReports -> for find all the reports for specific check or tags for authenticated user.
 
-```bash
-$ npm install
+## Configurations
+```diff
+- You have to add your .env file that contains vars that you will find in .env.example
 ```
 
 ## Running the app
 
 ```bash
-# development
-$ npm run start
+$ docker compose up
 
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+# run migrations on conatainer
+$ docker-compose exec app bash precompile.sh
 ```
 
 ## Test
 
 ```bash
 # unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+$ npm test
 ```
 
-## Support
+## App features
+- SignUp with email verification sent to the given email.
+- Stateless authentication using JWT.
+- User can delete check and all reports attached to that check will be automatically deleted and the interval of that check will be stopped.
+- User recieves an email whenever a url goes down.
+- Users can get detailed uptime reports about their checks availability, response time, and total uptime/downtime.
+- Redis is used when retrieving report status with time expiration to speed up the process instead of hitting the database every request.
+- App is dockerized.
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
 
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](LICENSE).
