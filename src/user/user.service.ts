@@ -26,7 +26,7 @@ export class UserService {
       const newUser = await this.userRepository.save(userEntity);
       return newUser;
     } catch (error) {
-      throw new BadRequestException('failed_user_creation');
+      throw new BadRequestException('failed_user_creation', error);
     }
   }
   async getByEmail(email: string): Promise<User> {
