@@ -1,0 +1,308 @@
+{
+	"info": {
+		"_postman_id": "c18860e4-25a9-400d-aba8-b1ab2e7a7452",
+		"name": "monitor",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "20993103"
+	},
+	"item": [
+		{
+			"name": "sign_up",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\":\"your_email@gmail.com\",\r\n    \"password\":\"123\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/auth/signUp",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"auth",
+						"signUp"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\":\"your_email@intellaworld.com\",\r\n    \"password\":\"123\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/auth/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create_check",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI5NGU4ZDQxZS0wMmMxLTQ5OTctYThmZC1jY2U4ZDRlZWExYzMiLCJlbWFpbCI6InlvdXNzZWYuYWJvZWxzb3VkQGludGVsbGF3b3JsZC5jb20iLCJpYXQiOjE2NjkwNjI0NzMsImV4cCI6MTY2OTE0ODg3M30.3yuINztKu7RKD7iFJr9iUbOdf2sv3xIZJLzv_fBxb3A",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\":\"youtube\",\r\n    \"url\":\"https://www.youtube.com/\",\r\n    \"ignoreSSL\":true,\r\n    \"userId\":\"94e8d41e-02c1-4997-a8fd-cce8d4eea1c3\",\r\n    \"tags\":\"testee1\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/check",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"check"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update_check",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIzOGRlNTYxYy0wMGVhLTRjZWMtYWY1Ny0wNzQzMzcyNjFiYzAiLCJlbWFpbCI6InlvdXNzZWYuYWJvZWxzb3VkQGludGVsbGF3b3JsZC5jb20iLCJpYXQiOjE2NjkwNTM0NjMsImV4cCI6MTY2OTEzOTg2M30.y3cHCU5tzhPCOAahJ6DhGiXgJ4y7Jqj4DnBcaW_2l8Y",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\":\"facebook\",\r\n    \"url\":\"https://www.facebook.com/\",\r\n    \"ignoreSSL\":true,\r\n    \"userId\":\"38de561c-00ea-4cec-af57-074337261bc0\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/check/1ab18da0-deaa-46b7-9346-33e92675be3e",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"check",
+						"1ab18da0-deaa-46b7-9346-33e92675be3e"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete_check",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI5NGU4ZDQxZS0wMmMxLTQ5OTctYThmZC1jY2U4ZDRlZWExYzMiLCJlbWFpbCI6InlvdXNzZWYuYWJvZWxzb3VkQGludGVsbGF3b3JsZC5jb20iLCJpYXQiOjE2NjkwNjI0NzMsImV4cCI6MTY2OTE0ODg3M30.3yuINztKu7RKD7iFJr9iUbOdf2sv3xIZJLzv_fBxb3A",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"userId\":\"94e8d41e-02c1-4997-a8fd-cce8d4eea1c3\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/check/dc3f4843-bbdc-454a-b0fe-da1faf87a8dc",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"check",
+						"dc3f4843-bbdc-454a-b0fe-da1faf87a8dc"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "find_all_checks",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI5NGU4ZDQxZS0wMmMxLTQ5OTctYThmZC1jY2U4ZDRlZWExYzMiLCJlbWFpbCI6InlvdXNzZWYuYWJvZWxzb3VkQGludGVsbGF3b3JsZC5jb20iLCJpYXQiOjE2NjkwNjI0NzMsImV4cCI6MTY2OTE0ODg3M30.3yuINztKu7RKD7iFJr9iUbOdf2sv3xIZJLzv_fBxb3A",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"userId\":\"94e8d41e-02c1-4997-a8fd-cce8d4eea1c3\"\r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/check",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"check"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "find_check",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI5NGU4ZDQxZS0wMmMxLTQ5OTctYThmZC1jY2U4ZDRlZWExYzMiLCJlbWFpbCI6InlvdXNzZWYuYWJvZWxzb3VkQGludGVsbGF3b3JsZC5jb20iLCJpYXQiOjE2NjkwNjI0NzMsImV4cCI6MTY2OTE0ODg3M30.3yuINztKu7RKD7iFJr9iUbOdf2sv3xIZJLzv_fBxb3A",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"userId\":\"94e8d41e-02c1-4997-a8fd-cce8d4eea1c3\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/report/4f73dd72-28b2-4c79-991d-6c3dddc82016",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"report",
+						"4f73dd72-28b2-4c79-991d-6c3dddc82016"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "find_reports",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI5NGU4ZDQxZS0wMmMxLTQ5OTctYThmZC1jY2U4ZDRlZWExYzMiLCJlbWFpbCI6InlvdXNzZWYuYWJvZWxzb3VkQGludGVsbGF3b3JsZC5jb20iLCJpYXQiOjE2NjkwNjI0NzMsImV4cCI6MTY2OTE0ODg3M30.3yuINztKu7RKD7iFJr9iUbOdf2sv3xIZJLzv_fBxb3A",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"userId\":\"94e8d41e-02c1-4997-a8fd-cce8d4eea1c3\",\r\n        \"tag\":[\"testee1\"]\r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/report",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"report"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
