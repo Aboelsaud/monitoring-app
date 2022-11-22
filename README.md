@@ -47,7 +47,7 @@ Monitor RESTFUL-API is an API for Uptime monitoring server which allows authoriz
 ```bash
 $ docker compose up
 
-# run migrations on container
+# run migrations
 $ docker-compose exec app bash precompile.sh
 ```
 
